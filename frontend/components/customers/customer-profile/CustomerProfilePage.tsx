@@ -25,7 +25,7 @@ export default function CustomerProfilePage() {
     <main className="app-shell">
       <div className="mb-4 flex flex-wrap items-center justify-between gap-3">
         <div>
-          <p className="text-xs font-bold tracking-[0.2em] text-[var(--brand-secondary)]">
+          <p className="text-xs font-bold tracking-[0.2em] text-(--brand-secondary)">
             EXO CRM
           </p>
           <h1 className="mt-1 text-3xl font-bold">Customer Profile</h1>
@@ -71,7 +71,7 @@ export default function CustomerProfilePage() {
                 </div>
               </div>
 
-              <div className="mt-5 grid gap-2 rounded-xl border border-[var(--brand-border)] p-4 text-sm">
+              <div className="mt-5 grid gap-2 rounded-xl border border-(--brand-border) p-4 text-sm">
                 <p>
                   <span className="font-semibold">Email:</span> {customer.email}
                 </p>
@@ -99,7 +99,7 @@ export default function CustomerProfilePage() {
                 {customer.recent_activity.slice(0, 5).map((item, index) => (
                   <li
                     key={`${item.action}-${index}`}
-                    className="rounded-lg border border-[var(--brand-border)] px-3 py-2"
+                    className="rounded-lg border border-(--brand-border) px-3 py-2"
                   >
                     <p className="font-medium">{item.action}</p>
                     <p className="text-xs text-slate-500">{item.time}</p>

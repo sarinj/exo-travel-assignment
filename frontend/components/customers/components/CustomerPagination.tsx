@@ -60,7 +60,6 @@ export default function CustomerPagination({
   const start = total === 0 ? 0 : (page - 1) * pageSize + 1
   const end = Math.min(page * pageSize, total)
   const visiblePages = getVisiblePages(page, totalPages)
-  const safeTotalPages = Math.max(totalPages, 1)
 
   return (
     <div className="mt-4 flex flex-col gap-3 bg-white p-3 sm:flex-row sm:items-center sm:justify-between">
@@ -165,10 +164,6 @@ export default function CustomerPagination({
             </PaginationItem>
           </PaginationContent>
         </Pagination>
-
-        <span className="min-w-20 text-center text-sm text-slate-600">
-          Page {page} / {safeTotalPages}
-        </span>
       </div>
     </div>
   )

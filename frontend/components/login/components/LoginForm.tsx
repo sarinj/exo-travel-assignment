@@ -14,6 +14,7 @@ import {
 } from "@/components/ui/form"
 import { Input } from "@/components/ui/input"
 import { loginFormSchema, type LoginFormValues } from "./login-form-schema"
+import { PasswordInput } from "@/components/ui/passwordInput"
 
 interface LoginFormProps {
   formId?: string
@@ -73,15 +74,9 @@ export default function LoginForm({
             <FormItem>
               <FormLabel>Password</FormLabel>
               <div className="relative">
-                <Lock className="pointer-events-none absolute top-2.5 left-3 h-4 w-4 text-slate-400" />
+                <Lock className="pointer-events-none absolute inset-y-0 left-3 z-10 my-auto h-4 w-4 text-slate-400" />
                 <FormControl>
-                  <Input
-                    {...field}
-                    id="password"
-                    type="password"
-                    className="pl-9"
-                    autoComplete="current-password"
-                  />
+                  <PasswordInput {...field} id="password" className="pl-9" />
                 </FormControl>
               </div>
               <FormMessage />
