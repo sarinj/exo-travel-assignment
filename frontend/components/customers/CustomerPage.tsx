@@ -2,10 +2,10 @@
 
 import { useMemo, useRef } from "react"
 import type { SortingState } from "@tanstack/react-table"
-import { Search } from "lucide-react"
+import { Search, UserPlus } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
-import { Card, CardContent, CardHeader } from "@/components/ui/card"
+import { CardContent, CardHeader } from "@/components/ui/card"
 import { useCustomersQuery } from "@/hooks/use-customers"
 import { useURLSearchParams } from "@/hooks/useURLSearchParams"
 import { useDebounceCallback } from "@/hooks/useDebounceCallback"
@@ -56,29 +56,28 @@ export default function CustomerPage() {
 
   return (
     <main className="app-shell">
-      <header className="mb-4 flex flex-col gap-4 sm:flex-row sm:items-end sm:justify-between">
+      <header className="mb-5 flex flex-col gap-4 sm:flex-row sm:items-start sm:justify-between">
         <div>
-          <p className="text-xs font-bold tracking-[0.2em] text-(--brand-secondary)">
-            EXO CRM
-          </p>
-          <h1 className="mt-1 text-3xl font-bold">Customer List</h1>
-          <p className="mt-1 text-sm text-slate-600">
-            Search and sort across mock customer records.
-          </p>
+          <h1 className="text-5xl font-bold tracking-tight text-foreground">
+            Customers
+          </h1>
         </div>
-        <Button type="button">Add New Customer</Button>
+        <Button type="button" className="px-6">
+          <UserPlus className="mr-2 h-4 w-4" />
+          Add New Customer
+        </Button>
       </header>
 
-      <Card>
-        <CardHeader></CardHeader>
-        <CardContent>
-          <div className="mb-5 grid gap-3 md:grid-cols-[1fr]">
+      <div className="">
+        <CardHeader className="pb-0"></CardHeader>
+        <CardContent className="space-y-5">
+          <div className="grid gap-3 rounded-2xl bg-[color-mix(in_oklab,var(--brand-primary)_6%,white)] p-4 lg:grid-cols-[1fr_auto] lg:items-center">
             <div className="relative">
               <Search className="pointer-events-none absolute top-2.5 left-3 h-4 w-4 text-slate-400" />
               <Input
                 ref={inputRef}
-                className="pl-9"
-                placeholder="Search by name, company, salesperson"
+                className="h-10 rounded-lg border-(--brand-border) bg-white pl-9"
+                placeholder="Search name, company, or salesperson..."
                 onChange={(event) => {
                   debouncedSearch(event.target.value)
                 }}
@@ -89,6 +88,7 @@ export default function CustomerPage() {
           <CustomerTable
             data={customersQuery.data?.data ?? []}
             isLoading={customersQuery.isLoading}
+            pageSize={pageSize}
             sorting={sorting}
             onSortingChange={(nextSorting) => {
               const nextSort = nextSorting[0]
@@ -125,7 +125,7 @@ export default function CustomerPage() {
             }}
           />
         </CardContent>
-      </Card>
+      </div>
     </main>
   )
 }

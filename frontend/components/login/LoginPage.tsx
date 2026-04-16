@@ -1,9 +1,8 @@
 "use client"
 
-import { ArrowRight } from "lucide-react"
 import { useRouter } from "next/navigation"
 import Image from "next/image"
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
+import { Card, CardContent, CardHeader } from "@/components/ui/card"
 import { useLoginMutation } from "@/hooks/use-auth"
 import LoginForm from "@/components/login/components/LoginForm"
 
@@ -20,7 +19,7 @@ export default function LoginPage() {
         <CardHeader className="space-y-3 pb-3">
           <div className="flex justify-center items-center gap-2">
             <Image
-              src="https://storage.googleapis.com/exo24_public/EXO_logo_green.png"
+              src="/EXO_logo_green.png"
               alt="EXO logo"
               width={150}
               height={48}

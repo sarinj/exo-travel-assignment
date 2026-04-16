@@ -62,9 +62,9 @@ export default function CustomerPagination({
   const visiblePages = getVisiblePages(page, totalPages)
 
   return (
-    <div className="mt-4 flex flex-col gap-3 bg-white p-3 sm:flex-row sm:items-center sm:justify-between">
-      <div className="text-sm text-slate-600">
-        Showing {start}-{end} of {total}
+    <div className="mt-2 flex flex-col gap-3 px-3 pt-4 pb-2 sm:flex-row sm:items-center sm:justify-between">
+      <div className="text-sm text-[color-mix(in_oklab,var(--brand-primary)_62%,white)]">
+        Showing {start}-{end} of {total} customers
       </div>
 
       <div className="flex flex-wrap items-center gap-2">

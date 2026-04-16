@@ -56,7 +56,6 @@ export default function LoginForm({
                   <Input
                     {...field}
                     id="email"
-                    type="email"
                     className="pl-9"
                     autoComplete="email"
                   />

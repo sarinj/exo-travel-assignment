@@ -1,5 +1,4 @@
 "use client"
-"use no memo"
 
 import Link from "next/link"
 import {
@@ -11,11 +10,13 @@ import {
   type Updater,
   useReactTable,
 } from "@tanstack/react-table"
-import { ArrowDown, ArrowUp, ArrowUpDown } from "lucide-react"
+import { ArrowDown, ArrowUp, ArrowUpDown, UserRound } from "lucide-react"
 import { useMemo } from "react"
 import { Badge } from "@/components/ui/badge"
 import { Button } from "@/components/ui/button"
 import type { Customer } from "@/api/customer"
+import { cn } from "@/lib/utils"
+import CustomerTableLoadingRows from "@/components/customers/components/CustomerTableLoadingRows"
 
 function currency(value: number) {
   return new Intl.NumberFormat("en-US", {
@@ -25,26 +26,41 @@ function currency(value: number) {
   }).format(value)
 }
 
+const avatarTones = [
+  "bg-[color-mix(in_oklab,var(--brand-secondary)_40%,white)] text-(--brand-primary)",
+  "bg-[color-mix(in_oklab,var(--brand-primary)_18%,white)] text-(--brand-primary)",
+  "bg-[color-mix(in_oklab,var(--brand-warning)_30%,white)] text-(--brand-primary)",
+]
+
+function getAvatarTone(seed: string) {
+  const total = seed
+    .split("")
+    .reduce((sum, char) => sum + char.charCodeAt(0), 0)
+  return avatarTones[total % avatarTones.length]
+}
+
 function SortIndicator({ state }: { state: false | "asc" | "desc" }) {
   if (state === "asc") {
-    return <ArrowUp className="h-3.5 w-3.5" />
+    return <ArrowUp className="size-4" />
   }
 
   if (state === "desc") {
-    return <ArrowDown className="h-3.5 w-3.5" />
+    return <ArrowDown className="size-4" />
   }
 
-  return <ArrowUpDown className="h-3.5 w-3.5 opacity-70" />
+  return <ArrowUpDown className="size-4 opacity-70" />
 }
 
 export default function CustomerTable({
   data,
   isLoading,
+  pageSize,
   sorting,
   onSortingChange,
 }: {
   data: Customer[]
   isLoading: boolean
+  pageSize: number
   sorting: SortingState
   onSortingChange: (sorting: SortingState) => void
 }) {
@@ -55,9 +71,23 @@ export default function CustomerTable({
         accessorKey: "name",
         header: "Customer",
         cell: ({ row }) => (
-          <div>
-            <p className="font-semibold">{row.original.name}</p>
-            <p className="text-xs text-slate-500">{row.original.email}</p>
+          <div className="flex items-center gap-3">
+            <div
+              className={cn(
+                "flex h-9 w-9 shrink-0 items-center justify-center rounded-full text-xs font-bold",
+                getAvatarTone(row.original.initials),
+              )}
+            >
+              {row.original.initials}
+            </div>
+            <div>
+              <p className="font-semibold text-foreground">
+                {row.original.name}
+              </p>
+              <p className="text-xs text-[color-mix(in_oklab,var(--brand-primary)_48%,white)]">
+                {row.original.email}
+              </p>
+            </div>
           </div>
         ),
       },
@@ -70,6 +100,16 @@ export default function CustomerTable({
         accessorKey: "salesperson",
         header: "Salesperson",
         enableSorting: false,
+        cell: ({ row }) => (
+          <div className="flex items-center gap-2">
+            <span className="flex h-5 w-5 items-center justify-center rounded-full bg-[color-mix(in_oklab,var(--brand-primary)_20%,white)] text-(--brand-primary)">
+              <UserRound className="h-3 w-3" />
+            </span>
+            <span className="text-[15px] text-[color-mix(in_oklab,var(--brand-primary)_72%,white)]">
+              {row.original.salesperson}
+            </span>
+          </div>
+        ),
       },
       {
         accessorKey: "status",
@@ -78,8 +118,8 @@ export default function CustomerTable({
           <Badge
             className={
               row.original.status === "Active"
-                ? "bg-green-100 text-green-700"
-                : "bg-amber-100 text-amber-700"
+                ? "rounded-full bg-[color-mix(in_oklab,var(--brand-secondary)_34%,white)] px-2.5 py-0.5 text-[11px] font-semibold text-(--brand-primary)"
+                : "rounded-full bg-[color-mix(in_oklab,var(--brand-warning)_34%,white)] px-2.5 py-0.5 text-[11px] font-semibold text-(--brand-primary)"
             }
           >
             {row.original.status}
@@ -101,9 +141,14 @@ export default function CustomerTable({
         header: "Action",
         cell: ({ row }) => (
           <div className="text-right">
-            <Button asChild variant="outline" size="sm">
-              <Link href={`/customers/${row.original.id}`}>View Profile</Link>
-            </Button>
+            <Link
+              href={`/customers/${row.original.id}`}
+              className="inline-block text-sm font-semibold leading-tight text-(--brand-primary) hover:underline"
+            >
+              View
+              <br />
+              Profile
+            </Link>
           </div>
         ),
       },
@@ -124,31 +169,27 @@ export default function CustomerTable({
   })
 
   return (
-    <div className="overflow-x-auto rounded-xl border border-(--brand-border)">
+    <div className="overflow-x-auto rounded-xl border border-(--brand-border) bg-white">
       <table className="min-w-full divide-y divide-(--brand-border) text-sm">
-        <thead className="bg-(--brand-soft) text-left text-xs uppercase tracking-wider text-slate-600">
+        <thead className="bg-[color-mix(in_oklab,var(--brand-primary)_6%,white)] text-left text-xs uppercase tracking-[0.12em] text-[color-mix(in_oklab,var(--brand-primary)_70%,white)]">
           {table.getHeaderGroups().map((headerGroup) => (
             <tr key={headerGroup.id}>
               {headerGroup.headers.map((header) => {
                 const canSort = header.column.getCanSort()
                 const sortState = header.column.getIsSorted()
+                const isActionColumn = header.column.id === "action"
 
                 return (
                   <th
                     key={header.id}
-                    className="px-4 py-3"
-                    aria-sort={
-                      sortState === "asc"
-                        ? "ascending"
-                        : sortState === "desc"
-                          ? "descending"
-                          : "none"
-                    }
+                    className={cn("px-4 py-3 text-right", {
+                      "text-left": !isActionColumn,
+                    })}
                   >
                     {header.isPlaceholder ? null : canSort ? (
-                      <button
-                        type="button"
-                        className="inline-flex items-center gap-1.5 font-semibold"
+                      <Button
+                        variant="ghost"
+                        className="h-auto justify-start gap-1.5 p-0 text-xs font-bold tracking-[0.12em] text-[color-mix(in_oklab,var(--brand-primary)_70%,white)] hover:bg-transparent hover:text-(--brand-primary)"
                         onClick={header.column.getToggleSortingHandler()}
                       >
                         {flexRender(
@@ -156,9 +197,11 @@ export default function CustomerTable({
                           header.getContext(),
                         )}
                         <SortIndicator state={sortState} />
-                      </button>
+                      </Button>
                     ) : (
-                      <div className="font-semibold">
+                      <div
+                        className={`text-xs font-bold tracking-[0.12em] text-[color-mix(in_oklab,var(--brand-primary)_70%,white)] ${isActionColumn ? "text-right" : "text-left"}`}
+                      >
                         {flexRender(
                           header.column.columnDef.header,
                           header.getContext(),
@@ -173,16 +216,15 @@ export default function CustomerTable({
         </thead>
         <tbody className="divide-y divide-(--brand-border) bg-white">
           {isLoading ? (
-            <tr>
-              <td className="px-4 py-6 text-slate-500" colSpan={7}>
-                Loading customers...
-              </td>
-            </tr>
+            <CustomerTableLoadingRows rowCount={pageSize} />
           ) : table.getRowModel().rows.length ? (
             table.getRowModel().rows.map((row) => (
-              <tr key={row.id} className="hover:bg-(--brand-soft)/60">
+              <tr
+                key={row.id}
+                className="hover:bg-[color-mix(in_oklab,var(--brand-soft)_42%,white)]"
+              >
                 {row.getVisibleCells().map((cell) => (
-                  <td key={cell.id} className="px-4 py-3">
+                  <td key={cell.id} className="px-4 py-4 align-middle">
                     {flexRender(cell.column.columnDef.cell, cell.getContext())}
                   </td>
                 ))}
@@ -190,8 +232,8 @@ export default function CustomerTable({
             ))
           ) : (
             <tr>
-              <td className="px-4 py-6 text-slate-500" colSpan={7}>
-                No customers found for current filters.
+              <td className="px-4 py-20 text-slate-500 text-center" colSpan={7}>
+                No customers found.
               </td>
             </tr>
           )}
