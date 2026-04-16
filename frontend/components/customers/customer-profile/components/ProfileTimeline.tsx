@@ -25,8 +25,8 @@ export default function ProfileTimeline({ activity }: ProfileTimelineProps) {
 
   return (
     <Card className="border-(--brand-border)">
-      <CardHeader className="flex flex-row items-center justify-between pb-3">
-        <CardTitle className="text-xl font-extrabold text-(--brand-primary)">
+      <CardHeader className="flex flex-col items-start justify-between gap-3 pb-3 sm:flex-row sm:items-center">
+        <CardTitle className="text-lg font-extrabold text-(--brand-primary) sm:text-xl">
           Recent Activity Timeline
         </CardTitle>
         <Button type="button" className="h-8 rounded-full px-4 text-sm">
@@ -41,7 +41,7 @@ export default function ProfileTimeline({ activity }: ProfileTimelineProps) {
             return (
               <li
                 key={`${item.action}-${index}`}
-                className="relative grid grid-cols-[3.5rem_1fr_auto] gap-4"
+                className="relative grid grid-cols-[2.75rem_1fr] gap-3 sm:grid-cols-[3.5rem_1fr_auto] sm:gap-4"
               >
                 {index < 4 ? (
                   <span className="absolute top-12 left-7 h-[calc(100%-0.25rem)] w-px bg-(--brand-border)" />
@@ -59,7 +59,7 @@ export default function ProfileTimeline({ activity }: ProfileTimelineProps) {
                     {timelineDescriptions[index % timelineDescriptions.length]}
                   </p>
                 </div>
-                <p className="pt-1 text-sm text-[color-mix(in_oklab,var(--brand-primary)_72%,white)]">
+                <p className="col-start-2 text-xs text-[color-mix(in_oklab,var(--brand-primary)_72%,white)] sm:col-start-auto sm:pt-1 sm:text-sm">
                   {item.time}
                 </p>
               </li>

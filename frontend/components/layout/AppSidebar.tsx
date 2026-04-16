@@ -7,7 +7,6 @@ import {
   CircleHelp,
   LayoutDashboard,
   LogOut,
-  Package,
   Settings,
   Users,
 } from "lucide-react"
@@ -25,15 +24,14 @@ import {
 } from "@/components/ui/sidebar"
 
 const primaryItems = [
-  { label: "Pipeline", href: "#", icon: LayoutDashboard, active: false },
+  { label: "Overview", href: "#", icon: LayoutDashboard, active: false },
   { label: "Customers", href: "/customers", icon: Users, active: true },
-  { label: "Inventory", href: "#", icon: Package, active: false },
   { label: "Settings", href: "#", icon: Settings, active: false },
 ]
 
 const secondaryItems = [
   { label: "Support", href: "#", icon: CircleHelp },
-  { label: "Logout", href: "#", icon: LogOut },
+  { label: "Logout", href: "/login", icon: LogOut },
 ]
 
 export default function AppSidebar() {
@@ -43,24 +41,27 @@ export default function AppSidebar() {
     <Sidebar
       collapsible="icon"
       variant="sidebar"
-      className="border-r border-[rgba(2,79,66,0.12)]"
+      className="border-r border-gray-200"
     >
-      <SidebarHeader className="px-3 pb-2 pt-5">
-        <Link href="/customers" className="flex justify-center rounded-lg p-2">
+      <SidebarHeader className="px-3 pb-2 pt-5 group-data-[collapsible=icon]:px-2 group-data-[collapsible=icon]:pt-3">
+        <Link
+          href="/customers"
+          className="flex items-center justify-center rounded-lg p-2 group-data-[collapsible=icon]:h-8 group-data-[collapsible=icon]:w-8 group-data-[collapsible=icon]:p-0"
+        >
           <Image
             src="/EXO_logo_green.png"
             alt="EXO logo"
-            className="h-auto w-22.5"
+            className="h-auto w-22.5 group-data-[collapsible=icon]:w-8"
             width={90}
             height={32}
           />
         </Link>
       </SidebarHeader>
 
-      <SidebarContent className="px-2">
+      <SidebarContent className="px-2 group-data-[collapsible=icon]:px-1">
         <SidebarGroup className="pt-1">
           <SidebarGroupContent>
-            <SidebarMenu>
+            <SidebarMenu className="space-y-2">
               {primaryItems.map((item) => {
                 const Icon = item.icon
                 const isActive =
@@ -73,11 +74,13 @@ export default function AppSidebar() {
                     <SidebarMenuButton
                       asChild
                       isActive={isActive}
-                      className="h-9 rounded-xl text-[15px] font-medium text-(--brand-primary) hover:bg-[color-mix(in_oklab,var(--brand-primary)_8%,white)] data-[active=true]:bg-[color-mix(in_oklab,var(--brand-secondary)_28%,white)] data-[active=true]:text-(--brand-primary)"
+                      className="h-9 rounded-xl text-[15px] px-3 font-medium text-(--brand-primary) hover:bg-[color-mix(in_oklab,var(--brand-primary)_8%,white)] data-[active=true]:bg-[color-mix(in_oklab,var(--brand-secondary)_28%,white)] data-[active=true]:text-(--brand-primary) group-data-[collapsible=icon]:h-8 group-data-[collapsible=icon]:w-8 group-data-[collapsible=icon]:justify-center group-data-[collapsible=icon]:gap-0 group-data-[collapsible=icon]:px-0 group-data-[collapsible=icon]:[&>svg]:mx-0"
                     >
                       <Link href={item.href}>
                         <Icon className="h-4.5 w-4.5" />
-                        <span>{item.label}</span>
+                        <span className="group-data-[collapsible=icon]:hidden">
+                          {item.label}
+                        </span>
                       </Link>
                     </SidebarMenuButton>
                   </SidebarMenuItem>
@@ -88,7 +91,7 @@ export default function AppSidebar() {
         </SidebarGroup>
       </SidebarContent>
 
-      <SidebarFooter className="px-2 pb-4 pt-2">
+      <SidebarFooter className="px-2 pb-4 pt-2 group-data-[collapsible=icon]:px-1">
         <SidebarMenu>
           {secondaryItems.map((item) => {
             const Icon = item.icon
@@ -97,11 +100,13 @@ export default function AppSidebar() {
               <SidebarMenuItem key={item.label}>
                 <SidebarMenuButton
                   asChild
-                  className="h-9 rounded-xl text-[15px] font-medium text-(--brand-primary) hover:bg-[color-mix(in_oklab,var(--brand-primary)_8%,white)]"
+                  className="h-9 rounded-xl text-[15px] font-medium text-(--brand-primary) hover:bg-[color-mix(in_oklab,var(--brand-primary)_8%,white)] group-data-[collapsible=icon]:h-8 group-data-[collapsible=icon]:w-8 group-data-[collapsible=icon]:justify-center group-data-[collapsible=icon]:gap-0 group-data-[collapsible=icon]:px-0 group-data-[collapsible=icon]:[&>svg]:mx-0"
                 >
                   <Link href={item.href}>
                     <Icon className="h-4.5 w-4.5" />
-                    <span>{item.label}</span>
+                    <span className="group-data-[collapsible=icon]:hidden">
+                      {item.label}
+                    </span>
                   </Link>
                 </SidebarMenuButton>
               </SidebarMenuItem>

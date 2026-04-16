@@ -169,9 +169,9 @@ export default function CustomerTable({
   })
 
   return (
-    <div className="overflow-x-auto rounded-xl border border-(--brand-border) bg-white">
-      <table className="min-w-full divide-y divide-(--brand-border) text-sm">
-        <thead className="bg-[color-mix(in_oklab,var(--brand-primary)_6%,white)] text-left text-xs uppercase tracking-[0.12em] text-[color-mix(in_oklab,var(--brand-primary)_70%,white)]">
+    <div className="overflow-x-auto rounded-lg bg-white">
+      <table className="w-full min-w-215 divide-y divide-(--brand-border) text-sm">
+        <thead className="bg-primary-50 text-left text-xs uppercase tracking-[0.12em] text-primary-700">
           {table.getHeaderGroups().map((headerGroup) => (
             <tr key={headerGroup.id}>
               {headerGroup.headers.map((header) => {
@@ -182,14 +182,14 @@ export default function CustomerTable({
                 return (
                   <th
                     key={header.id}
-                    className={cn("px-4 py-3 text-right", {
+                    className={cn("px-3 py-4 sm:px-4 sm:py-5 text-right", {
                       "text-left": !isActionColumn,
                     })}
                   >
                     {header.isPlaceholder ? null : canSort ? (
                       <Button
                         variant="ghost"
-                        className="h-auto justify-start gap-1.5 p-0 text-xs font-bold tracking-[0.12em] text-[color-mix(in_oklab,var(--brand-primary)_70%,white)] hover:bg-transparent hover:text-(--brand-primary)"
+                        className="h-auto justify-start gap-1.5 p-0 text-xs font-bold leading-none tracking-[0.12em] text-[color-mix(in_oklab,var(--brand-primary)_70%,white)] hover:bg-transparent hover:text-(--brand-primary)"
                         onClick={header.column.getToggleSortingHandler()}
                       >
                         {flexRender(
@@ -200,7 +200,7 @@ export default function CustomerTable({
                       </Button>
                     ) : (
                       <div
-                        className={`text-xs font-bold tracking-[0.12em] text-[color-mix(in_oklab,var(--brand-primary)_70%,white)] ${isActionColumn ? "text-right" : "text-left"}`}
+                        className={`text-xs font-bold leading-none tracking-[0.12em] text-[color-mix(in_oklab,var(--brand-primary)_70%,white)] ${isActionColumn ? "text-right" : "text-left"}`}
                       >
                         {flexRender(
                           header.column.columnDef.header,
@@ -224,7 +224,10 @@ export default function CustomerTable({
                 className="hover:bg-[color-mix(in_oklab,var(--brand-soft)_42%,white)]"
               >
                 {row.getVisibleCells().map((cell) => (
-                  <td key={cell.id} className="px-4 py-4 align-middle">
+                  <td
+                    key={cell.id}
+                    className="px-3 py-3 align-middle sm:px-4 sm:py-4"
+                  >
                     {flexRender(cell.column.columnDef.cell, cell.getContext())}
                   </td>
                 ))}
@@ -232,7 +235,10 @@ export default function CustomerTable({
             ))
           ) : (
             <tr>
-              <td className="px-4 py-20 text-slate-500 text-center" colSpan={7}>
+              <td
+                className="px-4 py-14 text-center text-slate-500 sm:py-20"
+                colSpan={7}
+              >
                 No customers found.
               </td>
             </tr>

@@ -32,19 +32,19 @@ export default function ProfileOverviewCard({
   return (
     <>
       <Card className="border-(--brand-border)">
-        <CardContent className="p-6">
+        <CardContent className="p-4 sm:p-6">
           <div className="flex flex-wrap items-start justify-between gap-4">
-            <div className="flex min-w-0 items-start gap-5">
+            <div className="flex min-w-0 flex-col items-start gap-4 sm:flex-row sm:gap-5">
               <div className="relative">
-                <div className="flex h-32 w-32 items-center justify-center overflow-hidden rounded-xl bg-linear-to-br from-[#041d28] via-[#0a3b4e] to-[#0e5a74]">
-                  <span className="text-3xl font-extrabold text-white">
+                <div className="flex h-20 w-20 items-center justify-center overflow-hidden rounded-xl bg-linear-to-br from-[#041d28] via-[#0a3b4e] to-[#0e5a74] sm:h-32 sm:w-32">
+                  <span className="text-2xl font-extrabold text-white sm:text-3xl">
                     {customer.initials}
                   </span>
                 </div>
               </div>
 
               <div className="min-w-0 pt-1">
-                <h1 className="truncate text-2xl font-extrabold tracking-tight text-(--brand-primary) sm:text-3xl">
+                <h1 className="truncate text-xl font-extrabold tracking-tight text-(--brand-primary) sm:text-3xl">
                   {customer.name}
                 </h1>
                 <p className="mt-2 text-base text-[color-mix(in_oklab,var(--brand-primary)_80%,white)] sm:text-lg">

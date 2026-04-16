@@ -17,7 +17,9 @@ export function CardHeader({
   className,
   ...props
 }: React.ComponentProps<"div">) {
-  return <div className={cn("px-6 pt-6", className)} {...props} />
+  return (
+    <div className={cn("px-4 pt-4 sm:px-6 sm:pt-6", className)} {...props} />
+  )
 }
 
 export function CardTitle({ className, ...props }: React.ComponentProps<"h3">) {
@@ -33,5 +35,7 @@ export function CardContent({
   className,
   ...props
 }: React.ComponentProps<"div">) {
-  return <div className={cn("px-6 pb-6", className)} {...props} />
+  return (
+    <div className={cn("px-4 pb-4 sm:px-6 sm:pb-6", className)} {...props} />
+  )
 }

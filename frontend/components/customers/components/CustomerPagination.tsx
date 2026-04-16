@@ -1,5 +1,7 @@
 "use client"
 
+import { Fragment } from "react"
+
 import {
   Pagination,
   PaginationContent,
@@ -62,34 +64,36 @@ export default function CustomerPagination({
   const visiblePages = getVisiblePages(page, totalPages)
 
   return (
-    <div className="mt-2 flex flex-col gap-3 px-3 pt-4 pb-2 sm:flex-row sm:items-center sm:justify-between">
-      <div className="text-sm text-[color-mix(in_oklab,var(--brand-primary)_62%,white)]">
+    <div className="mt-2 flex flex-col gap-3 px-2 pt-4 pb-2 sm:flex-row sm:items-center sm:justify-between sm:px-3">
+      <div className="text-xs text-[color-mix(in_oklab,var(--brand-primary)_62%,white)] sm:text-sm">
         Showing {start}-{end} of {total} customers
       </div>
 
-      <div className="flex flex-wrap items-center gap-2">
-        <label className="text-sm text-slate-600" htmlFor="page-size">
-          Rows per page
-        </label>
-        <Select
-          value={String(pageSize)}
-          onValueChange={(value) => onPageSizeChange(Number(value))}
-          disabled={isLoading}
-        >
-          <SelectTrigger id="page-size" className="w-20 bg-white">
-            <SelectValue placeholder="Rows" />
-          </SelectTrigger>
-          <SelectContent>
-            {PAGE_SIZE_OPTIONS.map((size) => (
-              <SelectItem key={size} value={String(size)}>
-                {size}
-              </SelectItem>
-            ))}
-          </SelectContent>
-        </Select>
+      <div className="flex w-full flex-col gap-2 sm:w-auto sm:flex-row sm:flex-wrap sm:items-center">
+        <div className="flex items-center gap-2">
+          <label className="text-sm text-slate-600" htmlFor="page-size">
+            Rows per page
+          </label>
+          <Select
+            value={String(pageSize)}
+            onValueChange={(value) => onPageSizeChange(Number(value))}
+            disabled={isLoading}
+          >
+            <SelectTrigger id="page-size" className="w-20 bg-white">
+              <SelectValue placeholder="Rows" />
+            </SelectTrigger>
+            <SelectContent>
+              {PAGE_SIZE_OPTIONS.map((size) => (
+                <SelectItem key={size} value={String(size)}>
+                  {size}
+                </SelectItem>
+              ))}
+            </SelectContent>
+          </Select>
+        </div>
 
-        <Pagination className="mx-0 w-auto justify-start">
-          <PaginationContent>
+        <Pagination className="mx-0 w-full justify-start overflow-x-auto sm:w-auto">
+          <PaginationContent className="min-w-max flex-nowrap">
             <PaginationItem>
               <PaginationPrevious
                 href="#"
@@ -114,7 +118,7 @@ export default function CustomerPagination({
                 previousPage !== undefined && pageNumber - previousPage > 1
 
               return (
-                <div key={pageNumber} className="flex items-center gap-0.5">
+                <Fragment key={pageNumber}>
                   {showEllipsis ? (
                     <PaginationItem>
                       <PaginationEllipsis />
@@ -141,7 +145,7 @@ export default function CustomerPagination({
                       {pageNumber}
                     </PaginationLink>
                   </PaginationItem>
-                </div>
+                </Fragment>
               )
             })}
 

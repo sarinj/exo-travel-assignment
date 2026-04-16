@@ -15,6 +15,16 @@
   --brand-soft: #ecf5e8;
   --brand-soft-strong: #dceccb;
   --brand-border: rgba(2, 79, 66, 0.16);
+  --primary-50: #edf9f5;
+  --primary-100: #d4f0e8;
+  --primary-200: #aae0d0;
+  --primary-300: #7dccb7;
+  --primary-400: #4fb09a;
+  --primary-500: #2f8f7a;
+  --primary-600: #024f42;
+  --primary-700: #013f35;
+  --primary-800: #013228;
+  --primary-900: #01261f;
   --background: oklch(1 0 0);
   --foreground: oklch(0.145 0 0);
   --card: oklch(1 0 0);
@@ -39,7 +49,7 @@
   --chart-4: oklch(0.371 0 0);
   --chart-5: oklch(0.269 0 0);
   --radius: 0.625rem;
-  --sidebar: var(--brand-soft);
+  --sidebar: #ffffff;
   --sidebar-foreground: var(--brand-primary);
   --sidebar-primary: var(--brand-primary);
   --sidebar-primary-foreground: #ffffff;
@@ -52,6 +62,16 @@
 @theme inline {
   --color-background: var(--brand-bg);
   --color-foreground: var(--brand-text);
+  --color-primary-50: var(--primary-50);
+  --color-primary-100: var(--primary-100);
+  --color-primary-200: var(--primary-200);
+  --color-primary-300: var(--primary-300);
+  --color-primary-400: var(--primary-400);
+  --color-primary-500: var(--primary-500);
+  --color-primary-600: var(--primary-600);
+  --color-primary-700: var(--primary-700);
+  --color-primary-800: var(--primary-800);
+  --color-primary-900: var(--primary-900);
   --font-sans: var(--font-sans);
   --font-heading: var(--font-sans);
   --color-sidebar-ring: var(--sidebar-ring);
@@ -102,9 +122,16 @@ body {
 }
 
 .app-shell {
-  width: min(1180px, 100% - 2rem);
+  width: min(1180px, 100% - 1rem);
   margin: 0 auto;
-  padding: 1.5rem 0 3rem;
+  padding: 1rem 0 2rem;
+}
+
+@media (min-width: 640px) {
+  .app-shell {
+    width: min(1180px, 100% - 2rem);
+    padding: 1.5rem 0 3rem;
+  }
 }
 
 .logo-wrap {
