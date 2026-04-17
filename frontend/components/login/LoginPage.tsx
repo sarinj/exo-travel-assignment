@@ -23,6 +23,7 @@ export default function LoginPage() {
               alt="EXO logo"
               width={150}
               height={48}
+              loading="eager"
             />
           </div>
         </CardHeader>

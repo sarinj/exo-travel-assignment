@@ -56,6 +56,7 @@ export default function AppSidebar() {
               className="h-auto w-24 ml-2"
               width={90}
               height={32}
+              style={{ height: "auto" }}
             />
           </Link>
           <SidebarTrigger className="h-9 w-9 shrink-0 p-0" />
