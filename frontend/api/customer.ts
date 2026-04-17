@@ -40,7 +40,6 @@ export async function getCustomers(params: ListCustomersParams) {
   const response = await apiClient.get<ResponseData<Customer[]>>("/customers", {
     params,
   })
-  console.log(response)
   return response.data
 }
 
@@ -48,6 +47,5 @@ export async function getCustomerById(id: string) {
   const response = await apiClient.get<ResponseData<Customer>>(
     `/customers/${id}`,
   )
-  console.log(response)
   return response.data
 }
