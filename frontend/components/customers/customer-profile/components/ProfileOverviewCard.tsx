@@ -1,13 +1,8 @@
-import {
-  CalendarDays,
-  CircleCheck,
-  NotebookPen,
-  ShoppingBag,
-  Wallet,
-} from "lucide-react"
+import { CalendarDays, NotebookPen, ShoppingBag, Wallet } from "lucide-react"
 import { Badge } from "@/components/ui/badge"
 import { Card, CardContent } from "@/components/ui/card"
 import type { Customer } from "@/api/customer"
+import { cn } from "@/lib/utils"
 
 function currency(value: number) {
   return new Intl.NumberFormat("en-US", {
@@ -24,11 +19,6 @@ type ProfileOverviewCardProps = {
 export default function ProfileOverviewCard({
   customer,
 }: ProfileOverviewCardProps) {
-  const statusTone =
-    customer.status === "Active"
-      ? "bg-[color-mix(in_oklab,var(--brand-success)_20%,white)] text-[var(--brand-primary)] border border-[color-mix(in_oklab,var(--brand-success)_35%,white)]"
-      : "bg-[color-mix(in_oklab,var(--brand-warning)_18%,white)] text-[var(--brand-primary)] border border-[color-mix(in_oklab,var(--brand-warning)_35%,white)]"
-
   return (
     <>
       <Card className="border-(--brand-border)">
@@ -36,7 +26,7 @@ export default function ProfileOverviewCard({
           <div className="flex flex-wrap items-start justify-between gap-4">
             <div className="flex min-w-0 flex-col items-start gap-4 sm:flex-row sm:gap-5">
               <div className="relative">
-                <div className="flex h-20 w-20 items-center justify-center overflow-hidden rounded-xl bg-linear-to-br from-[#041d28] via-[#0a3b4e] to-[#0e5a74] sm:h-32 sm:w-32">
+                <div className="flex h-20 w-20 items-center justify-center overflow-hidden rounded-xl bg-gray-300 sm:h-32 sm:w-32">
                   <span className="text-2xl font-extrabold text-white sm:text-3xl">
                     {customer.initials}
                   </span>
@@ -47,20 +37,34 @@ export default function ProfileOverviewCard({
                 <h1 className="truncate text-xl font-extrabold tracking-tight text-(--brand-primary) sm:text-3xl">
                   {customer.name}
                 </h1>
-                <p className="mt-2 text-base text-[color-mix(in_oklab,var(--brand-primary)_80%,white)] sm:text-lg">
+                <p className="mt-2 text-base text-primary-600 sm:text-lg">
                   {customer.company}
                 </p>
               </div>
             </div>
 
-            <Badge className={statusTone}>ACTIVE ACCOUNT</Badge>
+            <Badge
+              className={cn(
+                "rounded-full px-2.5 py-0.5 text-[11px] font-semibold",
+                {
+                  "bg-success-bg text-(--brand-primary)":
+                    customer.status === "Active",
+                  "bg-warning-bg text-(--brand-primary)":
+                    customer.status !== "Active",
+                },
+              )}
+            >
+              {customer.status === "Active"
+                ? "ACTIVE ACCOUNT"
+                : "INACTIVE ACCOUNT"}
+            </Badge>
           </div>
 
           <div className="my-6 h-px w-full bg-(--brand-border)" />
 
           <div className="grid gap-4 text-sm md:grid-cols-3">
             <div>
-              <p className="text-xs font-bold tracking-[0.16em] text-[color-mix(in_oklab,var(--brand-primary)_68%,white)] uppercase">
+              <p className="text-xs font-bold tracking-[0.16em] text-primary-500 uppercase">
                 Email Address
               </p>
               <p className="mt-2 break-all text-base font-semibold text-(--brand-primary) sm:text-lg">
@@ -68,7 +72,7 @@ export default function ProfileOverviewCard({
               </p>
             </div>
             <div>
-              <p className="text-xs font-bold tracking-[0.16em] text-[color-mix(in_oklab,var(--brand-primary)_68%,white)] uppercase">
+              <p className="text-xs font-bold tracking-[0.16em] text-primary-500 uppercase">
                 Direct Phone
               </p>
               <p className="mt-2 text-base font-semibold text-(--brand-primary) sm:text-lg">
@@ -76,7 +80,7 @@ export default function ProfileOverviewCard({
               </p>
             </div>
             <div>
-              <p className="text-xs font-bold tracking-[0.16em] text-[color-mix(in_oklab,var(--brand-primary)_68%,white)] uppercase">
+              <p className="text-xs font-bold tracking-[0.16em] text-primary-500 uppercase">
                 Salesperson
               </p>
               <p className="mt-2 text-base font-semibold text-(--brand-primary) sm:text-lg">
@@ -91,11 +95,11 @@ export default function ProfileOverviewCard({
         <Card className="border-(--brand-border)">
           <CardContent className="space-y-4 p-5">
             <div className="flex items-start justify-between">
-              <span className="flex h-12 w-12 items-center justify-center rounded-xl bg-[color-mix(in_oklab,var(--brand-primary)_8%,white)] text-(--brand-primary)">
+              <span className="flex h-12 w-12 items-center justify-center rounded-xl bg-primary-50 text-(--brand-primary)">
                 <Wallet className="h-5 w-5" />
               </span>
             </div>
-            <p className="text-xs font-bold tracking-[0.14em] text-[color-mix(in_oklab,var(--brand-primary)_68%,white)] uppercase">
+            <p className="text-xs font-bold tracking-[0.14em] text-primary-500 uppercase">
               Total Spend
             </p>
             <p className="text-2xl font-extrabold text-(--brand-primary)">
@@ -107,11 +111,11 @@ export default function ProfileOverviewCard({
         <Card className="border-(--brand-border)">
           <CardContent className="space-y-4 p-5">
             <div className="flex items-start justify-between">
-              <span className="flex h-12 w-12 items-center justify-center rounded-xl bg-[color-mix(in_oklab,var(--brand-primary)_8%,white)] text-(--brand-primary)">
+              <span className="flex h-12 w-12 items-center justify-center rounded-xl bg-primary-50 text-(--brand-primary)">
                 <ShoppingBag className="h-5 w-5" />
               </span>
             </div>
-            <p className="text-xs font-bold tracking-[0.14em] text-[color-mix(in_oklab,var(--brand-primary)_68%,white)] uppercase">
+            <p className="text-xs font-bold tracking-[0.14em] text-primary-500 uppercase">
               Total Purchases
             </p>
             <p className="text-2xl font-extrabold text-(--brand-primary)">
@@ -134,10 +138,10 @@ export default function ProfileOverviewCard({
 
         <Card className="border-(--brand-border)">
           <CardContent className="space-y-4 p-5">
-            <span className="flex h-12 w-12 items-center justify-center rounded-xl bg-[color-mix(in_oklab,var(--brand-primary)_8%,white)] text-(--brand-primary)">
+            <span className="flex h-12 w-12 items-center justify-center rounded-xl bg-primary-50 text-(--brand-primary)">
               <NotebookPen className="h-5 w-5" />
             </span>
-            <p className="text-xs font-bold tracking-[0.14em] text-[color-mix(in_oklab,var(--brand-primary)_68%,white)] uppercase">
+            <p className="text-xs font-bold tracking-[0.14em] text-primary-500 uppercase">
               Credit Status
             </p>
             <p className="flex items-center gap-2 text-xl font-extrabold text-(--brand-primary)">

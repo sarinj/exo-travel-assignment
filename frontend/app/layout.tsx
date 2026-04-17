@@ -2,9 +2,9 @@ import type { Metadata } from "next"
 import { Raleway, Geist } from "next/font/google"
 import "./globals.css"
 import Providers from "./providers"
-import { cn } from "@/lib/utils";
+import { cn } from "@/lib/utils"
 
-const geist = Geist({subsets:['latin'],variable:'--font-sans'});
+const geist = Geist({ subsets: ["latin"], variable: "--font-sans" })
 
 const raleway = Raleway({
   variable: "--font-raleway",
@@ -24,8 +24,17 @@ export default function RootLayout({
   children: React.ReactNode
 }>) {
   return (
-    <html lang="en" className={cn("h-full", "antialiased", raleway.variable, "font-sans", geist.variable)}>
-      <body className="min-h-full bg-[var(--brand-bg)] text-[var(--brand-text)]">
+    <html
+      lang="en"
+      className={cn(
+        "h-full",
+        "antialiased",
+        raleway.variable,
+        "font-sans",
+        geist.variable,
+      )}
+    >
+      <body className="min-h-full bg-background text-foreground">
         <Providers>{children}</Providers>
       </body>
     </html>

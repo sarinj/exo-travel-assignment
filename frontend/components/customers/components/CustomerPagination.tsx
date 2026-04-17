@@ -65,7 +65,7 @@ export default function CustomerPagination({
 
   return (
     <div className="mt-2 flex flex-col gap-3 px-2 pt-4 pb-2 sm:flex-row sm:items-center sm:justify-between sm:px-3">
-      <div className="text-xs text-[color-mix(in_oklab,var(--brand-primary)_62%,white)] sm:text-sm">
+      <div className="text-xs text-primary-500 sm:text-sm">
         Showing {start}-{end} of {total} customers
       </div>
 

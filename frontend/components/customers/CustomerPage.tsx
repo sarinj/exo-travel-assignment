@@ -56,9 +56,9 @@ export default function CustomerPage() {
 
   return (
     <main className="app-shell">
-      <header className="mb-5 flex flex-col gap-4 sm:flex-row sm:items-start sm:justify-between">
+      <header className="mb-5 flex flex-col gap-4 sm:flex-row sm:items-start sm:justify-between mt-2">
         <div>
-          <h1 className="text-3xl font-bold tracking-tight text-foreground sm:text-4xl lg:text-5xl">
+          <h1 className="text-3xl font-bold text-(--brand-primary) sm:text-4xl lg:text-5xl">
             Customers
           </h1>
         </div>
@@ -71,7 +71,7 @@ export default function CustomerPage() {
       <div className="">
         <CardHeader className="pb-0"></CardHeader>
         <CardContent className="space-y-5">
-          <div className="grid gap-3 rounded-lg bg-[color-mix(in_oklab,var(--brand-primary)_6%,white)] p-3 sm:p-4 lg:grid-cols-[1fr_auto] lg:items-center">
+          <div className="grid gap-3 rounded-lg bg-primary-50 p-3 sm:p-4 lg:grid-cols-[1fr_auto] lg:items-center">
             <div className="relative">
               <Search className="pointer-events-none absolute top-2.5 left-3 h-4 w-4 text-slate-400" />
               <Input

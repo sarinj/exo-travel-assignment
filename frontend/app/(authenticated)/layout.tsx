@@ -1,9 +1,6 @@
 import AppSidebar from "@/components/layout/AppSidebar"
-import {
-  SidebarInset,
-  SidebarProvider,
-  SidebarTrigger,
-} from "@/components/ui/sidebar"
+import AppTopBar from "@/components/layout/AppTopBar"
+import { SidebarInset, SidebarProvider } from "@/components/ui/sidebar"
 
 export default function AuthenticatedLayout({
   children,
@@ -14,9 +11,7 @@ export default function AuthenticatedLayout({
     <SidebarProvider>
       <AppSidebar />
       <SidebarInset>
-        <header className="sticky top-0 z-10 flex h-14 items-center border-b border-(--brand-border) bg-background/95 px-3 sm:px-4 backdrop-blur supports-backdrop-filter:bg-background/70">
-          <SidebarTrigger />
-        </header>
+        <AppTopBar />
         <div className="flex-1">{children}</div>
       </SidebarInset>
     </SidebarProvider>

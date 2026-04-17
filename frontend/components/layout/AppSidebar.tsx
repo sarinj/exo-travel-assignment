@@ -21,6 +21,7 @@ import {
   SidebarMenuButton,
   SidebarMenuItem,
   SidebarRail,
+  SidebarTrigger,
 } from "@/components/ui/sidebar"
 
 const primaryItems = [
@@ -44,18 +45,21 @@ export default function AppSidebar() {
       className="border-r border-gray-200"
     >
       <SidebarHeader className="px-3 pb-2 pt-5 group-data-[collapsible=icon]:px-2 group-data-[collapsible=icon]:pt-3">
-        <Link
-          href="/customers"
-          className="flex items-center justify-center rounded-lg p-2 group-data-[collapsible=icon]:h-8 group-data-[collapsible=icon]:w-8 group-data-[collapsible=icon]:p-0"
-        >
-          <Image
-            src="/EXO_logo_green.png"
-            alt="EXO logo"
-            className="h-auto w-22.5 group-data-[collapsible=icon]:w-8"
-            width={90}
-            height={32}
-          />
-        </Link>
+        <div className="flex w-full items-center justify-between group-data-[collapsible=icon]:justify-center">
+          <Link
+            href="/customers"
+            className="flex items-center justify-center rounded-lg p-2 group-data-[collapsible=icon]:hidden"
+          >
+            <Image
+              src="/EXO_logo_green.png"
+              alt="EXO logo"
+              className="h-auto w-24 ml-2"
+              width={90}
+              height={32}
+            />
+          </Link>
+          <SidebarTrigger className="h-9 w-9 shrink-0 p-0" />
+        </div>
       </SidebarHeader>
 
       <SidebarContent className="px-2 group-data-[collapsible=icon]:px-1">
@@ -74,7 +78,7 @@ export default function AppSidebar() {
                     <SidebarMenuButton
                       asChild
                       isActive={isActive}
-                      className="h-9 rounded-xl text-[15px] px-3 font-medium text-(--brand-primary) hover:bg-[color-mix(in_oklab,var(--brand-primary)_8%,white)] data-[active=true]:bg-[color-mix(in_oklab,var(--brand-secondary)_28%,white)] data-[active=true]:text-(--brand-primary) group-data-[collapsible=icon]:h-8 group-data-[collapsible=icon]:w-8 group-data-[collapsible=icon]:justify-center group-data-[collapsible=icon]:gap-0 group-data-[collapsible=icon]:px-0 group-data-[collapsible=icon]:[&>svg]:mx-0"
+                      className="h-9 rounded-xl text-[15px] px-3 font-medium text-(--brand-primary) hover:bg-primary-50 data-[active=true]:bg-secondary-200 data-[active=true]:text-(--brand-primary) group-data-[collapsible=icon]:h-8 group-data-[collapsible=icon]:w-8 group-data-[collapsible=icon]:justify-center group-data-[collapsible=icon]:gap-0 group-data-[collapsible=icon]:px-0 group-data-[collapsible=icon]:[&>svg]:mx-0"
                     >
                       <Link href={item.href}>
                         <Icon className="h-4.5 w-4.5" />
@@ -100,7 +104,7 @@ export default function AppSidebar() {
               <SidebarMenuItem key={item.label}>
                 <SidebarMenuButton
                   asChild
-                  className="h-9 rounded-xl text-[15px] font-medium text-(--brand-primary) hover:bg-[color-mix(in_oklab,var(--brand-primary)_8%,white)] group-data-[collapsible=icon]:h-8 group-data-[collapsible=icon]:w-8 group-data-[collapsible=icon]:justify-center group-data-[collapsible=icon]:gap-0 group-data-[collapsible=icon]:px-0 group-data-[collapsible=icon]:[&>svg]:mx-0"
+                  className="h-9 rounded-xl text-[15px] font-medium text-(--brand-primary) hover:bg-primary-50 group-data-[collapsible=icon]:h-8 group-data-[collapsible=icon]:w-8 group-data-[collapsible=icon]:justify-center group-data-[collapsible=icon]:gap-0 group-data-[collapsible=icon]:px-0 group-data-[collapsible=icon]:[&>svg]:mx-0"
                 >
                   <Link href={item.href}>
                     <Icon className="h-4.5 w-4.5" />

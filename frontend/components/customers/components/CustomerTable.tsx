@@ -15,29 +15,8 @@ import { useMemo } from "react"
 import { Badge } from "@/components/ui/badge"
 import { Button } from "@/components/ui/button"
 import type { Customer } from "@/api/customer"
-import { cn } from "@/lib/utils"
+import { cn, currency } from "@/lib/utils"
 import CustomerTableLoadingRows from "@/components/customers/components/CustomerTableLoadingRows"
-
-function currency(value: number) {
-  return new Intl.NumberFormat("en-US", {
-    style: "currency",
-    currency: "USD",
-    maximumFractionDigits: 0,
-  }).format(value)
-}
-
-const avatarTones = [
-  "bg-[color-mix(in_oklab,var(--brand-secondary)_40%,white)] text-(--brand-primary)",
-  "bg-[color-mix(in_oklab,var(--brand-primary)_18%,white)] text-(--brand-primary)",
-  "bg-[color-mix(in_oklab,var(--brand-warning)_30%,white)] text-(--brand-primary)",
-]
-
-function getAvatarTone(seed: string) {
-  const total = seed
-    .split("")
-    .reduce((sum, char) => sum + char.charCodeAt(0), 0)
-  return avatarTones[total % avatarTones.length]
-}
 
 function SortIndicator({ state }: { state: false | "asc" | "desc" }) {
   if (state === "asc") {
@@ -74,8 +53,7 @@ export default function CustomerTable({
           <div className="flex items-center gap-3">
             <div
               className={cn(
-                "flex h-9 w-9 shrink-0 items-center justify-center rounded-full text-xs font-bold",
-                getAvatarTone(row.original.initials),
+                "flex h-9 w-9 shrink-0 items-center justify-center rounded-full text-xs font-bold bg-secondary",
               )}
             >
               {row.original.initials}
@@ -84,9 +62,7 @@ export default function CustomerTable({
               <p className="font-semibold text-foreground">
                 {row.original.name}
               </p>
-              <p className="text-xs text-[color-mix(in_oklab,var(--brand-primary)_48%,white)]">
-                {row.original.email}
-              </p>
+              <p className="text-xs text-primary-400">{row.original.email}</p>
             </div>
           </div>
         ),
@@ -102,10 +78,10 @@ export default function CustomerTable({
         enableSorting: false,
         cell: ({ row }) => (
           <div className="flex items-center gap-2">
-            <span className="flex h-5 w-5 items-center justify-center rounded-full bg-[color-mix(in_oklab,var(--brand-primary)_20%,white)] text-(--brand-primary)">
+            <span className="flex h-5 w-5 items-center justify-center rounded-full bg-primary-100 text-(--brand-primary)">
               <UserRound className="h-3 w-3" />
             </span>
-            <span className="text-[15px] text-[color-mix(in_oklab,var(--brand-primary)_72%,white)]">
+            <span className="text-[15px] text-primary-500">
               {row.original.salesperson}
             </span>
           </div>
@@ -116,11 +92,15 @@ export default function CustomerTable({
         header: "Status",
         cell: ({ row }) => (
           <Badge
-            className={
-              row.original.status === "Active"
-                ? "rounded-full bg-[color-mix(in_oklab,var(--brand-secondary)_34%,white)] px-2.5 py-0.5 text-[11px] font-semibold text-(--brand-primary)"
-                : "rounded-full bg-[color-mix(in_oklab,var(--brand-warning)_34%,white)] px-2.5 py-0.5 text-[11px] font-semibold text-(--brand-primary)"
-            }
+            className={cn(
+              "rounded-full px-2.5 py-0.5 text-[11px] font-semibold",
+              {
+                "bg-success-bg text-(--brand-primary)":
+                  row.original.status === "Active",
+                "bg-warning-bg text-(--brand-primary)":
+                  row.original.status !== "Active",
+              },
+            )}
           >
             {row.original.status}
           </Badge>
@@ -189,7 +169,7 @@ export default function CustomerTable({
                     {header.isPlaceholder ? null : canSort ? (
                       <Button
                         variant="ghost"
-                        className="h-auto justify-start gap-1.5 p-0 text-xs font-bold leading-none tracking-[0.12em] text-[color-mix(in_oklab,var(--brand-primary)_70%,white)] hover:bg-transparent hover:text-(--brand-primary)"
+                        className="h-auto justify-start gap-1.5 p-0 text-xs font-bold leading-none tracking-[0.12em] text-primary-500 hover:bg-transparent hover:text-(--brand-primary)"
                         onClick={header.column.getToggleSortingHandler()}
                       >
                         {flexRender(
@@ -200,7 +180,7 @@ export default function CustomerTable({
                       </Button>
                     ) : (
                       <div
-                        className={`text-xs font-bold leading-none tracking-[0.12em] text-[color-mix(in_oklab,var(--brand-primary)_70%,white)] ${isActionColumn ? "text-right" : "text-left"}`}
+                        className={`text-xs font-bold leading-none tracking-[0.12em] text-primary-500 ${isActionColumn ? "text-right" : "text-left"}`}
                       >
                         {flexRender(
                           header.column.columnDef.header,
@@ -219,10 +199,7 @@ export default function CustomerTable({
             <CustomerTableLoadingRows rowCount={pageSize} />
           ) : table.getRowModel().rows.length ? (
             table.getRowModel().rows.map((row) => (
-              <tr
-                key={row.id}
-                className="hover:bg-[color-mix(in_oklab,var(--brand-soft)_42%,white)]"
-              >
+              <tr key={row.id} className="hover:bg-secondary-50">
                 {row.getVisibleCells().map((cell) => (
                   <td
                     key={cell.id}

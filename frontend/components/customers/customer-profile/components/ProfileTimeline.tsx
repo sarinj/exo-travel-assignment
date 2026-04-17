@@ -15,13 +15,6 @@ type ProfileTimelineProps = {
 
 export default function ProfileTimeline({ activity }: ProfileTimelineProps) {
   const timelineIcons = [FileText, UserPen, PhoneCall, ReceiptText, Sparkles]
-  const timelineDescriptions = [
-    "System generated update from the customer lifecycle workflow.",
-    "Profile details were updated through customer relationship actions.",
-    "Conversation or support touchpoint recorded in CRM timeline.",
-    "Financial activity entry has been logged for this account.",
-    "Milestone update captured based on account engagement.",
-  ]
 
   return (
     <Card className="border-(--brand-border)">
@@ -47,19 +40,16 @@ export default function ProfileTimeline({ activity }: ProfileTimelineProps) {
                   <span className="absolute top-12 left-7 h-[calc(100%-0.25rem)] w-px bg-(--brand-border)" />
                 ) : null}
 
-                <span className="z-10 flex h-12 w-12 items-center justify-center rounded-xl bg-[color-mix(in_oklab,var(--brand-primary)_8%,white)] text-(--brand-primary)">
+                <span className="z-10 flex h-12 w-12 items-center justify-center rounded-xl bg-primary-50 text-(--brand-primary)">
                   <Icon className="h-5 w-5" />
                 </span>
 
-                <div>
+                <div className="flex items-center">
                   <p className="text-lg font-bold text-(--brand-primary)">
                     {item.action}
                   </p>
-                  <p className="mt-1 text-sm text-[color-mix(in_oklab,var(--brand-primary)_72%,white)]">
-                    {timelineDescriptions[index % timelineDescriptions.length]}
-                  </p>
                 </div>
-                <p className="col-start-2 text-xs text-[color-mix(in_oklab,var(--brand-primary)_72%,white)] sm:col-start-auto sm:pt-1 sm:text-sm">
+                <p className="col-start-2 text-xs text-primary-500 sm:col-start-auto sm:pt-1 sm:text-sm">
                   {item.time}
                 </p>
               </li>
