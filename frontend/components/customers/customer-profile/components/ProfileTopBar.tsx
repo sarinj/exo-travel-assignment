@@ -9,7 +9,7 @@ type ProfileTopBarProps = {
 export default function ProfileTopBar({ backHref }: ProfileTopBarProps) {
   return (
     <div className="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
-      <div className="flex items-center gap-2 text-(--brand-primary)">
+      <div className="flex items-center gap-2 text-primary-600">
         <ArrowLeft className="h-4 w-4" />
         <Link href={backHref} className="text-sm font-semibold hover:underline">
           Back to List

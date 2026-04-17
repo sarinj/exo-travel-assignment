@@ -52,13 +52,40 @@ export default function CustomerPage() {
   }, [search, sortBy, order, page, pageSize])
 
   const customersQuery = useCustomersQuery(queryParams)
-  const meta = customersQuery.data?.meta
+  const meta = customersQuery.data?.meta ?? {
+    page,
+    limit: pageSize,
+    total: 0,
+    totalPages: 1,
+  }
+
+  function handleSortingChange(nextSorting: SortingState) {
+    const nextSort = nextSorting[0]
+    if (nextSort) {
+      updateParams({
+        sortBy: nextSort.id as ListCustomersParams["sortBy"],
+        order: nextSort.desc ? "desc" : "asc",
+        page: 1,
+      })
+    } else {
+      // Clear sort by removing sortBy and order from params
+      updateParams({
+        sortBy: undefined,
+        order: undefined,
+        page: 1,
+      })
+    }
+  }
+
+  function handlePaginationChange(page: number, pageSize: number) {
+    updateParams({ page, limit: pageSize })
+  }
 
   return (
     <main className="app-shell">
       <header className="mb-5 flex flex-col gap-4 sm:flex-row sm:items-start sm:justify-between mt-2">
         <div>
-          <h1 className="text-3xl font-bold text-(--brand-primary) sm:text-4xl lg:text-5xl">
+          <h1 className="text-3xl font-bold text-primary-600 sm:text-4xl lg:text-5xl">
             Customers
           </h1>
         </div>
@@ -71,7 +98,7 @@ export default function CustomerPage() {
       <div className="">
         <CardHeader className="pb-0"></CardHeader>
         <CardContent className="space-y-5">
-          <div className="grid gap-3 rounded-lg bg-primary-50 p-3 sm:p-4 lg:grid-cols-[1fr_auto] lg:items-center">
+          <div className="grid gap-3 rounded-lg bg-secondary-50 p-3 sm:p-4 lg:grid-cols-[1fr_auto] lg:items-center">
             <div className="relative">
               <Search className="pointer-events-none absolute top-2.5 left-3 h-4 w-4 text-slate-400" />
               <Input
@@ -90,39 +117,21 @@ export default function CustomerPage() {
             isLoading={customersQuery.isLoading}
             pageSize={pageSize}
             sorting={sorting}
-            onSortingChange={(nextSorting) => {
-              const nextSort = nextSorting[0]
-              if (nextSort) {
-                updateParams({
-                  sortBy: nextSort.id as ListCustomersParams["sortBy"],
-                  order: nextSort.desc ? "desc" : "asc",
-                  page: 1,
-                })
-              } else {
-                // Clear sort by removing sortBy and order from params
-                updateParams({
-                  sortBy: undefined,
-                  order: undefined,
-                  page: 1,
-                })
-              }
-            }}
+            onSortingChange={handleSortingChange}
           />
 
           <CustomerPagination
-            page={meta?.page ?? page}
-            pageSize={meta?.limit ?? pageSize}
-            total={meta?.total ?? 0}
-            totalPages={meta?.totalPages ?? 1}
+            page={meta.page}
+            pageSize={meta.limit}
+            total={meta.total}
+            totalPages={meta.totalPages}
             isLoading={customersQuery.isLoading}
-            onPageChange={(nextPage) => {
-              const safePage = Math.max(1, nextPage)
-              const maxPage = Math.max(meta?.totalPages ?? 1, 1)
-              updateParams({ page: Math.min(safePage, maxPage) })
-            }}
-            onPageSizeChange={(nextPageSize) => {
-              updateParams({ limit: nextPageSize, page: 1 })
-            }}
+            onPageChange={(nextPage) =>
+              handlePaginationChange(nextPage, pageSize)
+            }
+            onPageSizeChange={(nextPageSize) =>
+              handlePaginationChange(1, nextPageSize)
+            }
           />
         </CardContent>
       </div>

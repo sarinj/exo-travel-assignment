@@ -92,7 +92,7 @@ export default function LoginForm({
         <div className="pt-1 text-center">
           <a
             href="#"
-            className="text-sm font-semibold text-(--brand-primary) hover:underline"
+            className="text-sm font-semibold text-primary-600 hover:underline"
           >
             Forgot password?
           </a>

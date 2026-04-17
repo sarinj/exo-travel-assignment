@@ -19,7 +19,7 @@ export default function ProfileTimeline({ activity }: ProfileTimelineProps) {
   return (
     <Card className="border-(--brand-border)">
       <CardHeader className="flex flex-col items-start justify-between gap-3 pb-3 sm:flex-row sm:items-center">
-        <CardTitle className="text-lg font-extrabold text-(--brand-primary) sm:text-xl">
+        <CardTitle className="text-lg font-extrabold text-primary-600 sm:text-xl">
           Recent Activity Timeline
         </CardTitle>
         <Button type="button" className="h-8 rounded-full px-4 text-sm">
@@ -37,15 +37,15 @@ export default function ProfileTimeline({ activity }: ProfileTimelineProps) {
                 className="relative grid grid-cols-[2.75rem_1fr] gap-3 sm:grid-cols-[3.5rem_1fr_auto] sm:gap-4"
               >
                 {index < 4 ? (
-                  <span className="absolute top-12 left-7 h-[calc(100%-0.25rem)] w-px bg-(--brand-border)" />
+                  <span className="absolute top-12 left-7 h-[calc(100%-0.25rem)] w-px bg-border" />
                 ) : null}
 
-                <span className="z-10 flex h-12 w-12 items-center justify-center rounded-xl bg-primary-50 text-(--brand-primary)">
+                <span className="z-10 flex h-12 w-12 items-center justify-center rounded-xl bg-primary-50 text-primary-600">
                   <Icon className="h-5 w-5" />
                 </span>
 
                 <div className="flex items-center">
-                  <p className="text-lg font-bold text-(--brand-primary)">
+                  <p className="text-lg font-bold text-primary-600">
                     {item.action}
                   </p>
                 </div>

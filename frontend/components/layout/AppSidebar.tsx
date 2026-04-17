@@ -78,7 +78,7 @@ export default function AppSidebar() {
                     <SidebarMenuButton
                       asChild
                       isActive={isActive}
-                      className="h-9 rounded-xl text-[15px] px-3 font-medium text-(--brand-primary) hover:bg-primary-50 data-[active=true]:bg-secondary-200 data-[active=true]:text-(--brand-primary) group-data-[collapsible=icon]:h-8 group-data-[collapsible=icon]:w-8 group-data-[collapsible=icon]:justify-center group-data-[collapsible=icon]:gap-0 group-data-[collapsible=icon]:px-0 group-data-[collapsible=icon]:[&>svg]:mx-0"
+                      className="h-9 rounded-xl text-[15px] px-3 font-medium text-primary-600 hover:bg-secondary-50 data-[active=true]:bg-secondary-200 data-[active=true]:text-primary-600 group-data-[collapsible=icon]:h-8 group-data-[collapsible=icon]:w-8 group-data-[collapsible=icon]:justify-center group-data-[collapsible=icon]:gap-0 group-data-[collapsible=icon]:px-0 group-data-[collapsible=icon]:[&>svg]:mx-0"
                     >
                       <Link href={item.href}>
                         <Icon className="h-4.5 w-4.5" />
@@ -104,7 +104,7 @@ export default function AppSidebar() {
               <SidebarMenuItem key={item.label}>
                 <SidebarMenuButton
                   asChild
-                  className="h-9 rounded-xl text-[15px] font-medium text-(--brand-primary) hover:bg-primary-50 group-data-[collapsible=icon]:h-8 group-data-[collapsible=icon]:w-8 group-data-[collapsible=icon]:justify-center group-data-[collapsible=icon]:gap-0 group-data-[collapsible=icon]:px-0 group-data-[collapsible=icon]:[&>svg]:mx-0"
+                  className="h-9 rounded-xl text-[15px] font-medium text-primary-600 hover:bg-secondary-50 group-data-[collapsible=icon]:h-8 group-data-[collapsible=icon]:w-8 group-data-[collapsible=icon]:justify-center group-data-[collapsible=icon]:gap-0 group-data-[collapsible=icon]:px-0 group-data-[collapsible=icon]:[&>svg]:mx-0"
                 >
                   <Link href={item.href}>
                     <Icon className="h-4.5 w-4.5" />

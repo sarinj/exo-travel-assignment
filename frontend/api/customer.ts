@@ -1,4 +1,5 @@
 import { apiClient } from "./client"
+import { ResponseData } from "./global.type"
 
 export type RecentActivity = {
   action: string
@@ -22,16 +23,6 @@ export type Customer = {
   recent_activity: RecentActivity[]
 }
 
-export type ListCustomersResponse = {
-  data: Customer[]
-  meta: {
-    page: number
-    limit: number
-    total: number
-    totalPages: number
-  }
-}
-
 export type ListCustomersParams = {
   search?: string
   sortBy?:
@@ -46,14 +37,17 @@ export type ListCustomersParams = {
 }
 
 export async function getCustomers(params: ListCustomersParams) {
-  const response = await apiClient.get<ListCustomersResponse>("/customers", {
+  const response = await apiClient.get<ResponseData<Customer[]>>("/customers", {
     params,
   })
-
+  console.log(response)
   return response.data
 }
 
 export async function getCustomerById(id: string) {
-  const response = await apiClient.get<Customer>(`/customers/${id}`)
+  const response = await apiClient.get<ResponseData<Customer>>(
+    `/customers/${id}`,
+  )
+  console.log(response)
   return response.data
 }

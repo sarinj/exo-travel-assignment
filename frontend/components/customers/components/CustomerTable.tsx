@@ -78,7 +78,7 @@ export default function CustomerTable({
         enableSorting: false,
         cell: ({ row }) => (
           <div className="flex items-center gap-2">
-            <span className="flex h-5 w-5 items-center justify-center rounded-full bg-primary-100 text-(--brand-primary)">
+            <span className="flex h-5 w-5 items-center justify-center rounded-full bg-primary-100 text-primary-600">
               <UserRound className="h-3 w-3" />
             </span>
             <span className="text-[15px] text-primary-500">
@@ -95,9 +95,9 @@ export default function CustomerTable({
             className={cn(
               "rounded-full px-2.5 py-0.5 text-[11px] font-semibold",
               {
-                "bg-success-bg text-(--brand-primary)":
+                "bg-success-bg text-primary-600":
                   row.original.status === "Active",
-                "bg-warning-bg text-(--brand-primary)":
+                "bg-warning-bg text-primary-600":
                   row.original.status !== "Active",
               },
             )}
@@ -123,7 +123,7 @@ export default function CustomerTable({
           <div className="text-right">
             <Link
               href={`/customers/${row.original.id}`}
-              className="inline-block text-sm font-semibold leading-tight text-(--brand-primary) hover:underline"
+              className="inline-block text-sm font-semibold leading-tight text-primary-600 hover:underline"
             >
               View
               <br />
@@ -136,6 +136,7 @@ export default function CustomerTable({
     [],
   )
 
+  // eslint-disable-next-line react-hooks/incompatible-library
   const table = useReactTable({
     data,
     columns,
@@ -151,7 +152,7 @@ export default function CustomerTable({
   return (
     <div className="overflow-x-auto rounded-lg bg-white">
       <table className="w-full min-w-215 divide-y divide-(--brand-border) text-sm">
-        <thead className="bg-primary-50 text-left text-xs uppercase tracking-[0.12em] text-primary-700">
+        <thead className="bg-secondary-50 text-left text-xs uppercase tracking-[0.12em] text-primary-700">
           {table.getHeaderGroups().map((headerGroup) => (
             <tr key={headerGroup.id}>
               {headerGroup.headers.map((header) => {
@@ -169,7 +170,7 @@ export default function CustomerTable({
                     {header.isPlaceholder ? null : canSort ? (
                       <Button
                         variant="ghost"
-                        className="h-auto justify-start gap-1.5 p-0 text-xs font-bold leading-none tracking-[0.12em] text-primary-500 hover:bg-transparent hover:text-(--brand-primary)"
+                        className="h-auto justify-start gap-1.5 p-0 text-xs font-bold leading-none tracking-[0.12em] text-primary-500 hover:bg-transparent hover:text-primary-600"
                         onClick={header.column.getToggleSortingHandler()}
                       >
                         {flexRender(

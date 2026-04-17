@@ -45,6 +45,6 @@ export class CustomersController {
       throw new NotFoundException('Customer not found');
     }
 
-    return customer;
+    return { data: customer };
   }
 }
