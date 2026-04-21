@@ -58,6 +58,12 @@ This starts:
 - Frontend: http://localhost:3000
 - API docs (Swagger): http://localhost:3001/api/docs
 
+## For live URL
+
+- Frontend: https://exo-travel-assignment-production-f336.up.railway.app
+- Backend: https://exo-travel-assignment-production.up.railway.app/api
+- API Documentation: https://exo-travel-assignment-production.up.railway.app/api/docs
+
 ## Login
 
 The login endpoint is mocked, so any email/password works.
